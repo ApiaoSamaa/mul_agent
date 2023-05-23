@@ -1,33 +1,18 @@
-"""
-task 1: 全局耦合网络
-实现全局耦合网络，展示网络图，并计算平均路径长度和聚类系数。
 
-网络描述
-无向图，任意两个节点之间均有边相连
-基本性质:
-    K_{GC} = |A| - 1 (节点的度)
-    L_{GC} = 1 (平均路径长度)
-    C_{GC} = 1 (聚类系数)
-    
-平均路径长度(L):
-任意两节点间最短路径长度d的平均值（最短路径长度可由广度优先搜索算法来确定）
-
-
-
-task 2,3,4:
-
-1.2 实现最近邻耦合网络，展示网络图，并计算平均路径长度和聚类系数。
-1.3 实现星形网络，展示网络图，并计算平均路径长度和聚类系数。
-
-"""
-
-
-import streamlit as st
 import numpy as np
 import pandas as pd
 from collections import deque
 
 def draw_mat(nodes_num, type):
+    """_summary_
+    画出选中的节点类型的邻接矩阵
+    Args:
+        nodes_num (_type_): _description_
+        type (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     
     if type == '1.1: global_coupled_network':
         df = pd.DataFrame(data=np.ones(shape=(nodes_num,nodes_num)),columns=(i+1 for i in range(nodes_num)))
@@ -44,7 +29,7 @@ def draw_mat(nodes_num, type):
     
 def calcu(mat):
     """_summary_
-
+    在有邻接矩阵的前提下，输出该网络的k L C
     Args:
         mat (pandas.dataframe(nodes_num, nodes_num)): 表示了相应交互结构的矩阵表示
     Returns:
@@ -61,6 +46,15 @@ def calcu(mat):
     return k, L, C
 
 def findNeighbor(mat, node_idx):
+    """_summary_
+    是计算 C 时候的 util函数，寻找每个idx节点的邻居数量信息
+    Args:
+        mat (_type_): _description_
+        node_idx (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     # tuple 
     neighbor = np.where(mat[node_idx] == 1)
     # Equal: num = np.isin(np.where(mat[neighbor]==1)[0], neighbor).sum() / 2
@@ -95,7 +89,8 @@ def shortest_path(matrix):
     
 def formalize(d):
     """_summary_
-
+    1. 为了输出邻接矩阵美观性，将float显示值变成int
+    2. 把邻接矩阵的对角线规范化为0
     Args:
         d (dataframe): 
     Returns: 规范化的矩阵，其中对角线为0，整数形式。
@@ -106,64 +101,22 @@ def formalize(d):
     # df = pd.DataFrame(df_np.astype('int32'))
     return pd.DataFrame(df_np.astype('int32'))
 
-OptionSequence = ["1.1: global_coupled_network",'1.2: nearest_neighbor_coupling_network', '1.3: star_shape_network', '2.1 Watts_and_Strogtz_network','6.1 Boids_model']
-option = st.sidebar.selectbox("选择问题类型",options=OptionSequence,index=0)
-if (option!='1.5'):
-    nodes_num = st.sidebar.slider("网络中点的数量", 2, 20, 7, 1)
 
-    st.title(option)
-    df = draw_mat(nodes_num, option)
-    st.subheader('交互结构的邻接矩阵表示')
-    st.write(df)
+def mat2G(mat):
+    """_summary_
+    make the mat into G in order to draw it
+    Args:
+        mat (_type_): _description_
+    """
+    return 0
 
-    mat = np.array(df)
-    k, L, C = calcu(mat)
-
-    if option=="1.1: global_coupled_network":
-        st.write('全局耦合网络图的特征理论值')  
-        st.latex(
-            r'''
-            K_{GC} = |A| - 1 (节点的度)\\
-            
-            L_{GC} = 1 (平均路径长度)\\
-            
-            C_{GC} = 1 (聚类系数)\\
-            '''
-        )
-    if option=="1.2: global_coupled_network":
-        st.write('')
-        
-    if option=="1.3: star_shape_network":
-        st.write('')
-        
-    st.subheader('该网络真实特征测量值')
-    st.write(f'节点度：{k}')
-    st.write(f'平均路径长度：{C}')
-    st.write(f'聚类系数：{C}')
-
-# if option is not about the network
-elif option=='6.1 Boids_model':
-    0
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def G2mat(G):
+    """_summary_
+    make the networkx Graph into mat, so that we can calculate the features.
+    Args:
+        G (_type_): _description_
+    """
+    return 0
 
 
 
