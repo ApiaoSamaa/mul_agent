@@ -1,3 +1,4 @@
+# %%
 import numpy as np
 import streamlit as st
 import pandas as pd
@@ -22,10 +23,16 @@ df = pd.DataFrame(df_np.astype('int32'))
 
 df
 
-import matplotlib
-matplotlib.use('TkAgg')  # Set the backend
-
+# %%
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+
+fig = plt.figure((8*8))
+fig.add_subplot(1,2,1)
+plt.show()
+# %%
+
+
 from PIL import Image
 import io
 import math
@@ -71,3 +78,5 @@ def plot_fully_connected_graph(num_nodes):
 # Example usage with Streamlit
 num_nodes = st.slider('Number of nodes', min_value=2, max_value=10, value=4)
 plot_fully_connected_graph(8)
+
+# %%

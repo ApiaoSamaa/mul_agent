@@ -8,7 +8,7 @@
 
 网络描述：无向图，任意两个节点之间均有边相连
 
-<div align=center><img src="./img/pic1.jpg"></div>
+<div align=center><img src="./image/readme/pic1.jpg"></div>
 
 明确每个性质的含义和计算方法：
 展示网络图：
@@ -55,7 +55,7 @@ def draw_mat(nodes_num, type):
         # change dataframe raw name, using data.index, directly change it.
         df.index = df.columns
         df = formalize(df)
-      
+    
         return df
 ```
 
@@ -113,8 +113,6 @@ def shortest_path(matrix):
     return np.array(output_matrix)
 ```
 
-
-
 随机网络 （ER随机图）
 
 任意两点间以一定概率p建立交互连接
@@ -122,7 +120,7 @@ def shortest_path(matrix):
 
 krandom = p(|A|-1)
 Lrandom ∝ ln|A|/ln krandom
-Crandom = p 
+Crandom = p
 
 WS小世界模型 （Watts&Strogtz,1998）
 构建方法：
@@ -131,13 +129,22 @@ WS小世界模型 （Watts&Strogtz,1998）
 建立一个含有N个节点的最近邻耦合网络，每个节点与左右相邻的K/2个邻居节点连接（K为偶数）；
 
 随机化重连
-以概率p随机地重连网络中的每条边（即将边的一端节点保持不变，而将另一端点选择为网络中的随机选择的一个节点）。
+以概率p随机地重连网络中的每条边（即将边的一端节点保持不变，而将另一端点选择为网络中的随机选择的一个节点）。(和NW相比，就是破坏原先的再相加)
 
 NOTE：任意两个节点间只能有一条边，且每一节点不允许有边与自身相连。
-
 
 二次方贝塞尔曲线的路径由给定点P0、P1、P2的函数B（t）追踪：
 
 ![1684808193542](image/readme/1684808193542.png)
 
 TrueType字体就运用了以贝兹样条组成的二次贝塞尔曲线。
+
+
+   Sample :math:`m_L` from a binomial distribution
+    :math:`\mathcal B(N(N-1-k)/2, p_L`. For each edge
+    m with :math:`0\leq m\leq m_L` sample a node :math:`u`
+    and a possible long-range neighbor :math:`v` until
+    egde :math:`(u,v)` has not yet been sampled.
+    Then add :math:`(u,v)` to the network.
+
+
